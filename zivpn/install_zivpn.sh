@@ -1,12 +1,9 @@
 #!/bin/bash
 # OPSSHXUDPMANAGER - ZIVPN UDP Installer (No password prompt)
-# Repository: https://github.com/OfficialOnePesewa/OPSSHXUDPMANAGER
 
-# --- Configuration ---
 ZIVPN_BIN="/usr/local/bin/zivpn"
 ZIVPN_CONF="/etc/zivpn/config.json"
 DEFAULT_PASSWORD="opsshxudp"
-# --- End Configuration ---
 
 echo -e "Updating server"
 sudo apt-get update && apt-get upgrade -y
@@ -17,7 +14,6 @@ wget https://github.com/zahidbd2/udp-zivpn/releases/download/udp-zivpn_1.4.9/udp
 chmod +x "$ZIVPN_BIN"
 
 mkdir /etc/zivpn 1> /dev/null 2> /dev/null
-
 wget https://raw.githubusercontent.com/zahidbd2/udp-zivpn/main/config.json -O "$ZIVPN_CONF" 1> /dev/null 2> /dev/null
 
 echo "Generating cert files:"
@@ -47,7 +43,6 @@ NoNewPrivileges=true
 WantedBy=multi-user.target
 EOF
 
-# Set default password without prompt
 echo "Setting default password: $DEFAULT_PASSWORD"
 new_config_str="\"config\": [\"$DEFAULT_PASSWORD\"]"
 sed -i -E "s/\"config\": ?\[[[:space:]]*\"zi\"[[:space:]]*\]/${new_config_str}/g" "$ZIVPN_CONF"
